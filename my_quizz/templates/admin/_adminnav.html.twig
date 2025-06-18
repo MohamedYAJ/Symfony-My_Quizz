@@ -1,0 +1,37 @@
+<aside class="fixed w-72 bg-white border-r shadow-sm min-h-screen p-6">
+    <h2 class="text-2xl font-bold text-gray-700 mb-8">Admin Board</h2>
+    <div class="flex mb-6">
+    <a href="/" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-2xl hover:bg-blue-700 transition duration-200">Home</a>
+    </div>
+
+    <div class="mb-8">
+        <h3 class="text-lg font-semibold text-gray-600 mb-4 uppercase tracking-wide">Quizz</h3>
+        <ul class="space-y-2">
+            <li>
+                <a href="{{ path('admin_quizz') }}" class="block text-blue-600 hover:text-blue-800 font-medium transition">Liste des Quizz</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mb-8">
+        <h3 class="text-lg font-semibold text-gray-600 mb-4 uppercase tracking-wide">Utilisateurs</h3>
+        <ul>
+            <li>
+                <a href="{{ path('admin_users') }}" class="block text-blue-600 hover:text-blue-800 font-medium transition">Liste des Utilisateurs</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="">
+        <h3 class="text-lg font-semibold text-gray-600 mb-4 uppercase tracking-wide">Statistiques</h3>
+        <ul class="space-y-2">
+            <li>
+                <a href="{{ path('admin_stats_user') }}" class="block text-blue-600 hover:text-blue-800 font-medium transition">Statistiques des utilisateurs</a>
+            </li>
+            <li>
+
+                <a href="{{ path('admin_stats_quiz') }}" class="block text-blue-600 hover:text-blue-800 font-medium transition">Statistiques des quizz</a>
+            </li>
+        </ul>
+    </div>
+</aside>

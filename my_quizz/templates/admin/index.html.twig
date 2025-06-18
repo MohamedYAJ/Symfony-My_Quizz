@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-100 flex">
+    {% include 'admin/_adminnav.html.twig' %}
+    
+    <main class="flex-1 p-10 ml-72">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Administration - Pannel</h1>
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <p class="text-gray-600 text-lg">
+                Bienvenue Administrateur !
+            </p>
+        </div>
+    </main>
+</div>
+{% endblock %}

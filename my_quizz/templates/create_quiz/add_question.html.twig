@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create question{% endblock %}
+
+{% block body %}
+<div class="flex flex-col w-full items-center mt-20 px-4">
+    <h1 class="text-3xl font-bold text-center mb-6">
+        Ajouter une question à <span class="text-blue-600">"{{ quiz.name }}"</span>
+    </h1>
+
+    <form method="POST" class="border-[2px] rounded-xl p-8 w-full max-w-xl space-y-6">
+        <p>{{ currentQuestionNumber }} / {{ totalQuestionsPlanned }} <strong class="ml-10"> ({{moreToGo}} </strong> More questions to go!!)</p>
+        <div>
+            <label class="block text-lg font-semibold mb-2" for="question_name">Question :</label>
+            <input type="text" name="question_name" id="question_name" required class="w-full border border-gray-300 rounded-full px-4 py-2 outline-none">
+        </div>
+
+        <div>
+            <p class="font-semibold text-lg mb-4">Réponses :</p>
+            <div class="space-y-4">
+                {% for i in 0..2 %}
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-4">
+                        <input type="text" name="responses[{{ i }}][label]" placeholder="Réponse {{ i + 1 }}" required class="flex-1 border border-gray-300 rounded-full px-4 py-2 outline-none">
+                        <label class="mt-2 sm:mt-0 flex items-center space-x-2 text-sm">
+                            <input type="checkbox" name="responses[{{ i }}][is_correct]" class="rounded">
+                            <span>Correcte</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button
+                type="submit"
+                class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-blue-700 transition duration-300"
+            >
+                Ajouter la question
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

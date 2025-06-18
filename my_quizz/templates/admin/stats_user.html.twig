@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-100 flex">
+    {% include 'admin/_adminnav.html.twig' %}
+
+    <main class="flex-1 p-10 ml-72">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Statistiques des utilisateurs</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <table class="min-w-full table-auto border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100 text-left text-gray-600 text-sm">
+                        <th class="py-3 uppercase px-4">Id</th>
+                        <th class="py-3 uppercase px-4">Username</th>
+                        <th class="py-3 uppercase px-4">Total time spent</th>
+                        <th class="py-3 uppercase px-4">Total of points</th>
+                        <th class="py-3 uppercase px-4">Total of Quizz</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr class="border-t text-gray-700 hover:bg-gray-50">
+                            <td class="py-2 px-4">{{ user.id }}</td>
+                            <td class="py-2 px-4">{{ user.username }}</td>
+                            <td class="py-2 px-4">
+                                {% set hours = (user.totalTimeSpent // 60) %}
+                                {% set minutes = (user.totalTimeSpent % 60) %}
+                                {{ hours }} h {{ minutes }} min
+                            </td>                            
+                            <td class="py-2 px-4">
+                                {{ user.totalPoints }}
+                            </td>
+                            <td class="py-2 px-4">
+                                {{ user.totalQuizzes }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="py-4 px-4 text-center text-gray-500">
+                                Aucun utilisateur trouvé.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+{% endblock %}

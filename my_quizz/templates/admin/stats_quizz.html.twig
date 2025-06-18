@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-100 flex">
+    {% include 'admin/_adminnav.html.twig'%}
+
+    <main class="flex-1 p-10 justify-center items-center w-1/4 ml-72">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Statistiques des Quizz</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <table class="min-w-full table-auto border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100 text-left text-gray-600 text-sm">
+                        <th class="py-3 uppercase px-4">Id</th>
+                        <th class="py-3 uppercase px-4">Quiz name</th>
+                        <th class="py-3 uppercase px-4">Total Questions</th>
+                        <th class="py-3 uppercase px-4">Success Rate</th>
+                        <th class="py-3 uppercase px-4">Total Attempts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categorie in categories %}
+                        <tr class="border-t text-gray-700 hover:bg-gray-50">
+                            <td class="py-2 px-4">{{ categorie.id }}</td>
+                            <td class="py-2 px-4">{{ categorie.name }}</td>
+                            <td class="py-2 px-4">{{ categoryStats[categorie.id].numberOfQuestions}}</td>
+                              <td class="py-2 px-4">{{categoryStats[categorie.id].successRate}}%</td>
+                              <td class="py-2 px-4">{{categoryStats[categorie.id].totalAttempts}}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="py-4 px-4 text-center text-gray-500">
+                                Aucun Quiz trouvé. 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="w-full mt-10 items-center flex flex-col">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Statistiques Globales</h2>
+            <div class="w-4/5">{{ render_chart(chart) }}</div>
+            <div class="flex space-x-3 mt-10">
+                <a href="{{ path('admin_stats_quiz', {'period': 'day'}) }}"
+                   class="text-blue-600 border-[2px] rounded-lg border-blue-600 font-bold py-1 px-4 hover:bg-blue-600 hover:text-white
+                          {% if currentPeriod == 'day' %}bg-blue-600 text-white{% endif %}">
+                    Day
+                </a>
+                <a href="{{ path('admin_stats_quiz', {'period': 'week'}) }}"
+                   class="text-blue-600 border-[2px] rounded-lg border-blue-600 font-bold py-1 px-4 hover:bg-blue-600 hover:text-white
+                          {% if currentPeriod == 'week' %}bg-blue-600 text-white{% endif %}">
+                    Week
+                </a>
+                <a href="{{ path('admin_stats_quiz', {'period': 'month'}) }}"
+                   class="text-blue-600 border-[2px] rounded-lg border-blue-600 font-bold py-1 px-4 hover:bg-blue-600 hover:text-white
+                          {% if currentPeriod == 'month' %}bg-blue-600 text-white{% endif %}">
+                    Month
+                </a>
+                <a href="{{ path('admin_stats_quiz', {'period': 'year'}) }}"
+                   class="text-blue-600 border-[2px] rounded-lg border-blue-600 font-bold py-1 px-4 hover:bg-blue-600 hover:text-white
+                          {% if currentPeriod == 'year' %}bg-blue-600 text-white{% endif %}">
+                    Year
+                </a>
+            </div>
+        </div>
+
+    </main>
+</div>
+{% endblock %}

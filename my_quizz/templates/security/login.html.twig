@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in !{% endblock %}
+
+{% block body %}
+    <div class="flex flex-col items-center justify-center h-screen">
+
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+        <h1 class="flex justify-center w-[500px] text-blue-500 font-bold text-6xl mb-8">Login</h1>
+        <label class="font-bold ml-5 text-lg" for="inputEmail">Email :</label>
+        <input class="bg-[#d9d9d9] w-full rounded-full py-6 flex indent-5 mb-5 focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" name="email" id="inputEmail" class="form-control" placeholder="Enter your email" autocomplete="email" required autofocus>
+        <label class="font-bold ml-5 text-lg" for="inputPassword">Password :</label>
+        <input class="bg-[#d9d9d9] w-full rounded-full py-6 flex indent-5 focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" placeholder="Enter your password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="_remember_me"> Remember me
+        </label>
+    </div>
+
+    <div class="flex justify-center">
+        <button class="flex justify-center bg-blue-500 text-white font-extrabold px-16 py-4 rounded-full mt-4 hover:bg-blue-700" type="submit">
+            Login
+        </button>
+    </div>
+    <div class="flex justify-center mt-5">
+        <p>Dont have an account yet ? <a class="text-blue-500 font-bold hover:text-blue-700" href="/register">Register</a></p>
+    </div>
+</form>
+    </div>
+
+{% endblock %}

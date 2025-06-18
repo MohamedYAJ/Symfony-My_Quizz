@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class="flex flex-col items-center justify-center h-screen">
+
+    <h1 class="text-blue-500 mb-8 text-center text-6xl font-bold">Register</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+
+            {{ form_row(registrationForm.username, {
+                label: 'Username:',
+                label_attr : { class: 'font-bold text-lg'}, 
+                attr: { class:"bg-[#d9d9d9] w-[500px] rounded-full py-6 flex indent-5 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder:"Enter a username" },
+                
+            }) }}
+
+            {{ form_row(registrationForm.email, {
+                label: 'Email:',
+                label_attr : { class: 'font-bold text-lg'}, 
+                attr: { class:"bg-[#d9d9d9] w-full rounded-full py-6 flex indent-5 mb-5 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder:"Enter your email" },
+                
+            }) }}
+
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password:',
+                label_attr : { class: 'font-bold text-lg'},
+                attr: { class:"bg-[#d9d9d9] w-full rounded-full py-6 flex indent-5 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder:"Enter a password" }
+            }) }}
+
+            {{ form_row(registrationForm.agreeTerms, {
+                attr: { class: 'mr-2 leading-tight' }
+            }) }}
+
+            <div class="flex justify-center">
+                <button class="flex justify-center bg-blue-500 text-white font-extrabold px-16 py-4 rounded-full mt-4 hover:bg-blue-700" type="submit">
+                    Register
+                </button>
+            </div>
+            <div class="flex justify-center mt-5">
+                <p>Already have an account ? <a class="text-blue-500 font-bold hover:text-blue-700" href="/login">Login</a></p>
+            </div>
+
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

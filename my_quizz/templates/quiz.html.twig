@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiz - {{ category.name }}{% endblock %}
+
+{% block body %}
+    <div class="flex flex-col items-center mt-5">
+    <h1 class="text-3xl font-bold mb-5 text-blue-600 mt-[75px]">{{ category.name }} Quiz</h1>
+
+    {% if questions is not empty %}
+        <ul>
+            {# {% for question in questions %}
+                <div class="flex justify-center mb-8"> <p class="text-2xl font-bold mt-[100px]">{{ question.question }}</p></div>
+                <div class="flex justify-center">
+                <ul class="mt-[60px]">
+
+                    {% for reponse in question.reponses %}
+                        <li class="m-6 font-semibold text-lg">
+                            <input type="radio" name="question_{{ question.id }}" value="{{ reponse.id }}">
+                            {{ reponse.reponse }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>
+                <div class="flex justify-center">
+                <button class="flex justify-center bg-blue-500 text-white font-extrabold px-16 py-4 rounded-full mt-[50px] hover:bg-blue-700" type="submit">
+                    Validate
+                </button>
+                </div>
+                
+            {% endfor %} #}
+            <form method="POST">
+                <h2>{{ question.question }}</h2>
+                {% for reponse in question.reponses %}
+                    <div>
+                        <label>
+                            <input type="radio" name="answer" value="{{ reponse.id }}" required>
+                            {{ reponse.reponse }}
+                        </label>
+                    </div>
+                {% endfor %}
+                <button type="submit">Suivant</button>
+            </form>
+        </ul>
+    {% else %}
+        <p>No questions found for {{ category.name|default('this category') }}.</p>
+    {% endif %}
+    <button id="submitQuiz" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+    </div>
+{% endblock %}

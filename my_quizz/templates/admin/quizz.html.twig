@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-100 flex">
+    {% include 'admin/_adminnav.html.twig' %}
+
+    <main class="flex-1 p-10 ml-72">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Liste des Quizz</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <table class="min-w-full table-auto border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100 text-left text-gray-600 text-sm">
+                        <th class="py-3 uppercase px-4">Id</th>
+                        <th class="py-3 uppercase px-4">Quizz name</th>
+                        <th class="py-3 uppercase px-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categorie in categories %}
+                        <tr class="border-t text-gray-700 hover:bg-gray-50">
+                            <td class="py-2 px-4">{{ categorie.id }}</td>
+                            <td class="py-2 px-4">{{ categorie.name }}</td>
+                            <td class="py-2 px-4">
+                            <div class="flex gap-2">
+                                <button type="submit" class="bg-blue-500 text-white font-bold py-1 px-4 rounded-2xl hover:bg-blue-700 transition duration-200">Edit</button> 
+                                <form method="post" action="{{ path('admin_delete_quizz', {id: categorie.id}) }}">
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input 
+                                            type="submit" 
+                                            name="delete_quizz"
+                                            onchange="this.form.submit()"
+                                            class="bg-red-500 text-white font-bold py-1 px-4 rounded-2xl hover:bg-red-700 transition duration-200"
+                                            value="Delete"
+                                        >
+                                    </label>
+                                </form>
+                            </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="py-4 px-4 text-center text-gray-500">
+                                Aucun Quizz trouvé.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+{% endblock %}

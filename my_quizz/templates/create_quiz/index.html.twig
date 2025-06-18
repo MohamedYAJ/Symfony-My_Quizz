@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create new quiz{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex justify-center items-center">
+    <div class="flex flex-col w-2/4  mx-auto p-10">
+        <h1 class="text-5xl font-bold text-center mb-10">Créer un nouveau quiz</h1>
+
+        <form method="POST" action="{{ path('quiz_create') }}" class="flex flex-col space-y-7">
+            <div class="flex flex-col">
+                <label class="text-xl font-bold">Nom du quiz :</label>
+                <input class="border bg-gray-200 rounded-full outline-none py-6 px-6 text-xl" type="text" name="quiz_name" required>
+            </div>
+
+            <div class="flex flex-col">
+                <label class="text-xl font-bold">Nombre de questions prévues :</label>
+                <input class="border bg-gray-200 rounded-full outline-none py-6 px-6 text-xl" type="number" name="planned_questions" min="10" max="20" required>
+            </div>
+
+
+            <div class="text-center">
+                <button type="submit" class="bg-blue-600 text-white font-bold text-xl px-6 py-4 rounded-xl">Créer le quiz</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

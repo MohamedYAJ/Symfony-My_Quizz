@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-100 flex">
+    {% include 'admin/_adminnav.html.twig' %}
+
+    <main class="flex-1 p-10 ml-72">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Liste des utilisateurs</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <table class="min-w-full table-auto border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100 text-left text-gray-600 text-sm">
+                        <th class="py-3 uppercase px-4">Id</th>
+                        <th class="py-3 uppercase px-4">Username</th>
+                        <th class="py-3 uppercase px-4">Email</th>
+                        <th class="py-3 uppercase px-4">Rôle</th>
+                        <th class="py-3 uppercase px-4">Verified</th>
+                        <th class="py-3 uppercase px-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr class="border-t text-gray-700 hover:bg-gray-50">
+                            <td class="py-2 px-4">{{ user.id }}</td>
+                            <td class="py-2 px-4">{{ user.username }}</td>
+                            <td class="py-2 px-4">{{ user.email }}</td>
+                            <td class="py-2 px-4">
+                            {% if app.user.id != user.id %}        
+                            <form method="post" action="{{ path('admin_toggle', {id: user.id}) }}">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input 
+                                        type="checkbox" 
+                                        name="is_admin"
+                                        onchange="this.form.submit()"
+                                        class="sr-only peer"
+                                        {% if 'ROLE_ADMIN' in user.roles %} checked disabled {% endif %}
+                                    >
+                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                            </form>
+                            {% endif %}
+                            </td>
+                            <td class="py-2 px-4">
+                            {% if app.user.id != user.id %}        
+                            <form method="post" action="{{ path('admin_verified_toggle', {id: user.id}) }}">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input 
+                                        type="checkbox" 
+                                        name="is_verified"
+                                        onchange="this.form.submit()"
+                                        class="sr-only peer"
+                                        {% if (user.isVerified == true) %} checked disabled {% endif %}
+                                    >
+                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                            </form>
+                            {% endif %}
+                            </td>
+                            <td class="py-2 px-4">
+                            {% if app.user.id != user.id %}
+                            {% if 'ROLE_ADMIN' in user.roles %}
+                            {% else %}   
+                            <form method="post" action="{{ path('admin_delete', {id: user.id}) }}">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input 
+                                        type="submit" 
+                                        name="delete"
+                                        onchange="this.form.submit()"
+                                        class="bg-red-500 text-white font-bold py-2 px-4 rounded-2xl hover:bg-red-700 transition duration-200"
+                                        value="Delete"
+                                    >
+                                </label>
+                            </form>
+                            {% endif %}     
+                            {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="py-4 px-4 text-center text-gray-500">
+                                Aucun utilisateur trouvé.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        <a href="{{ path('admin_create_user') }}" 
+                        class="inline-block bg-green-500 mt-10 ml-[600px] hover:bg-green-700 text-white font-bold py-2 px-6 rounded-2xl transition duration-200">
+                            Créer un utilisateur
+                        </a>
+                    </td>
+                </tr>
+            </tfoot>
+        </div>
+    </main>
+</div>
+{% endblock %}
